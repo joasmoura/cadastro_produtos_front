@@ -13,3 +13,4 @@
 
 ## Adicionar arquivo .env no projeto:
   - Adicionar dentro do arquivo: BASE_URL=http://localhost:8000/api
+  
