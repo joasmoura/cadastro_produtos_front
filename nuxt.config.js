@@ -1,10 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
-
+require('dotenv').config()
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - front',
-    title: 'front',
+    titleTemplate: '',
+    title: 'Sistema de cadastro',
     htmlAttrs: {
       lang: 'en'
     },
@@ -25,6 +25,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/money.client.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -38,14 +39,31 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/dotenv',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: process.env.BASE_URL,
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        user: {
+          property: 'user'
+        },
+        endpoints: {
+          login: { url: '/login', propertyName: 'authenticationToken'},
+          user: { url: '/user'},
+          logout: { url: '/logout' }
+        }
+      }
+    }
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

@@ -16,10 +16,12 @@
 </template>
 
 <script>
+import swal from 'sweetalert2'
 import validations from '@/mixins/validations'
+import error from '~/mixins/error'
 export default {
   layout: 'Auth',
-  mixins: [validations],
+  mixins: [validations, error],
   data: () => ({
     form: {
       email: '',
@@ -27,9 +29,21 @@ export default {
     }
   }),
   methods: {
-    login () {
+    async login () {
       if (this.$refs.form.validate()) {
-        alert('login')
+        await this.$auth.loginWith('local', {
+          data: this.form
+        }).then((res) => {
+          if (res.data) {
+            this.$router.push('/products')
+          }
+        }).catch((e) => {
+          swal.fire({
+            title: 'Erro',
+            text: this.verifyError(e),
+            icon: 'error'
+          })
+        })
       }
     }
   }

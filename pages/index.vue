@@ -1,9 +1,13 @@
 <template>
-<h1>Início</h1>
+  <h1>Sistema de cadastro de produtos</h1>
 </template>
 
 <script>
 export default {
-  name: 'IndexPage'
+
 }
 </script>
+
+<style>
+
+</style>
